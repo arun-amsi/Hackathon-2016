@@ -28,21 +28,14 @@ var randomScalingFactor = function(){ return Math.round(Math.random()*1000)};
 		}
 		
 	var barChartData = {
-			labels : ["January","February","March","April","May","June","July"],
+			labels : x_data,
 			datasets : [
-				{
-					fillColor : "rgba(220,220,220,0.5)",
-					strokeColor : "rgba(220,220,220,0.8)",
-					highlightFill: "rgba(220,220,220,0.75)",
-					highlightStroke: "rgba(220,220,220,1)",
-					data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
-				},
 				{
 					fillColor : "rgba(48, 164, 255, 0.2)",
 					strokeColor : "rgba(48, 164, 255, 0.8)",
 					highlightFill : "rgba(48, 164, 255, 0.75)",
 					highlightStroke : "rgba(48, 164, 255, 1)",
-					data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+					data : y_data
 				}
 			]
 	
@@ -105,19 +98,19 @@ var randomScalingFactor = function(){ return Math.round(Math.random()*1000)};
 				];
 
 window.onload = function(){
-	var chart1 = document.getElementById("line-chart").getContext("2d");
+	/*var chart1 = document.getElementById("line-chart").getContext("2d");
 	window.myLine = new Chart(chart1).Line(lineChartData, {
 		responsive: true
-	});
+	});*/
 	var chart2 = document.getElementById("bar-chart").getContext("2d");
 	window.myBar = new Chart(chart2).Bar(barChartData, {
 		responsive : true
 	});
-	var chart3 = document.getElementById("doughnut-chart").getContext("2d");
+	/*var chart3 = document.getElementById("doughnut-chart").getContext("2d");
 	window.myDoughnut = new Chart(chart3).Doughnut(doughnutData, {responsive : true
 	});
 	var chart4 = document.getElementById("pie-chart").getContext("2d");
 	window.myPie = new Chart(chart4).Pie(pieData, {responsive : true
-	});
+	});*/
 	
 };

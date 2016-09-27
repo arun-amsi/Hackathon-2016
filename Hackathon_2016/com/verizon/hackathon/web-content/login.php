@@ -2,6 +2,9 @@
 <?php
 session_start();
 // Do Something
+
+if(isset($_SESSION['id_user']))
+	header('Location: index.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -25,6 +28,7 @@ session_start();
 
 <?php 
 include '../shared/DbConnectionUtil.php' ;
+$display	=	'none';
 if(isset($_POST["username"])) {
 	$userName = $_POST["username"];
 	$passWord = $_POST["password"];
@@ -35,15 +39,15 @@ if(isset($_POST["username"])) {
 		die("Connection failed: " . $conn->connect_error);
 	}
 	
-	$sql = "select id from user_login where username='$userName' and password='$passWord'";
+	$sql = "select id_user from users where username='$userName' and password='$passWord'";
 	
 	$result = $conn->query($sql);
 	
 	if ($result->num_rows > 0) {
-	$_SESSION["logged_user"] = $username;
+	$_SESSION["id_user"] = $username;
 	header("location: index.php");
 	} else {
-		echo "<script>window.alert('Invalid User...')</script>";
+		$display	=	'block';
 	}
 	
 	$conn->close();
@@ -55,6 +59,9 @@ if(isset($_POST["username"])) {
 			<div class="login-panel panel panel-default">
 				<div class="panel-heading">Log in</div>
 				<div class="panel-body">
+					<div style="color:red;padding-bottom:10px;text-align: center;font-size: 20px;display:<?php echo $display;?>">
+					Invalid User</div>
+					
 					<form role="form" method="POST">
 						<fieldset>
 							<div class="form-group">
