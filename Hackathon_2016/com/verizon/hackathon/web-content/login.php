@@ -25,7 +25,7 @@ session_start();
 
 <?php 
 include '../shared/DbConnectionUtil.php';
-if(isset($_POST["username"])){
+if(isset($_POST["username"])) {
 	$userName = $_POST["username"];
 	$passWord = $_POST["password"];
 	
