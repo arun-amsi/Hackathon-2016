@@ -1,9 +1,11 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lumino - Widgets</title>
+<title>View Rule</title>
 
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/datepicker3.css" rel="stylesheet">
@@ -53,7 +55,7 @@
 		</form>
 		<ul class="nav menu">
 			<li><a href="index.php"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Dashboard</a></li>
-			<li class="active"><a href="widgets.php"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Widgets</a></li>
+			<li class="active"><a href="widgets.php"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> View Rule</a></li>
 			<li><a href="charts.php"><svg class="glyph stroked line-graph"><use xlink:href="#stroked-line-graph"></use></svg> Charts</a></li>
 			<li><a href="tables.php"><svg class="glyph stroked table"><use xlink:href="#stroked-table"></use></svg> Tables</a></li>
 			<li><a href="forms.php"><svg class="glyph stroked pencil"><use xlink:href="#stroked-pencil"></use></svg> Forms</a></li>
@@ -97,7 +99,7 @@
 		
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Widgets</h1>
+				<h1 class="page-header">View Rule</h1>
 			</div>
 		</div><!--/.row-->
 									
@@ -159,11 +161,11 @@
 		<div class="row">
 			<div class="col-md-8">
 				<div class="panel panel-default">
-					<div class="panel-heading"><svg class="glyph stroked email"><use xlink:href="#stroked-email"></use></svg> Contact Form</div>
+					<div class="panel-heading"><svg class="glyph stroked email"><use xlink:href="#stroked-email"></use></svg> Rule</div>
 					<div class="panel-body">
 						<form class="form-horizontal" action="" method="post">
-							<fieldset>
-								<!-- Name input-->
+							<fieldset><!--
+								
 								<div class="form-group">
 									<label class="col-md-3 control-label" for="name">Name</label>
 									<div class="col-md-9">
@@ -171,7 +173,7 @@
 									</div>
 								</div>
 							
-								<!-- Email input-->
+								
 								<div class="form-group">
 									<label class="col-md-3 control-label" for="email">Your E-mail</label>
 									<div class="col-md-9">
@@ -179,7 +181,7 @@
 									</div>
 								</div>
 								
-								<!-- Message body -->
+								
 								<div class="form-group">
 									<label class="col-md-3 control-label" for="message">Your message</label>
 									<div class="col-md-9">
@@ -187,12 +189,50 @@
 									</div>
 								</div>
 								
-								<!-- Form actions -->
+								
 								<div class="form-group">
 									<div class="col-md-12 widget-right">
 										<button type="submit" class="btn btn-default btn-md pull-right">Submit</button>
 									</div>
-								</div>
+								</div> -->
+								
+								<table style="width:100%" border="10%">
+								  <tr>
+									<th>Num Of XRefs</th>
+									<th>Id</th> 
+									<th>Transfer Count</th>
+									<th>Update</th>
+								  </tr>								
+								
+								<?php 
+								include '../shared/DbConnectionUtil.php' ;
+								$conn = new mysqli($servername, $username, $password, $dbname);
+								// Check connection
+								if ($conn->connect_error) {
+									 die("Connection failed: " . $conn->connect_error);
+								} 
+
+								$sql = "SELECT NumOfXRefs, id, NumOfXRefs, TransferCount, AutomationCount, TotalTime FROM etms_data_pack LIMIT 10";
+								$result = $conn->query($sql);
+
+								if ($result->num_rows > 0) {
+									 // output data of each row
+									 while($row = $result->fetch_assoc()) {
+										 echo "<tr>";
+										 echo "<td>".$row["NumOfXRefs"]."</td>";
+										 echo "<td>".$row["TransferCount"]."</td>";
+										 echo "<td>".$row["TotalTime"]."</td>";
+										 echo "<td>";
+										 echo "<input type='image' name='submit' class='btn btn-primary' alt='Approve/Delete' />";
+										 echo "</td>";
+										 //echo "<br> id: ". $row["NumOfXRefs"]. " - Name: ". $row["TransferCount"]. " " . $row["TotalTime"] . "<br>";
+										 echo "<tr>";
+									 }
+								} else {
+									 echo "0 results";
+								}
+								?>
+								</table>
 							</fieldset>
 						</form>
 					</div>
